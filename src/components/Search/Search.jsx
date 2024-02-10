@@ -1,5 +1,7 @@
 import React from "react";
 import "./Search.css";
+import { FaExchangeAlt } from "react-icons/fa";
+
 function Search() {
   return (
     <div className="search">
@@ -44,23 +46,32 @@ function Search() {
           </ul>
         </div>
         <div className="userSearchSection">
-          <div className="from">
-            <span className="textlabel">From</span>
+          <div className="leftFromTo">
+            <div className="fromTo">
+              <span className="textlabel">From</span>
+              <input type="text" />
+            </div>
+            <span className="searchFilterIcon">
+              <FaExchangeAlt />
+            </span>
+            <div className="fromTo">
+              <span className="textlabel">To</span>
+              <input type="text" />
+            </div>
           </div>
-          <div className="from">
-            <span className="textlabel">From</span>
-          </div>
-          <div className="from">
-            <span className="textlabel">From</span>
-          </div>
-          <div className="from">
-            <span className="textlabel">From</span>
-          </div>
-          <div className="from">
-            <span className="textlabel">From</span>
+          <div className="rightDepartureTravelersClass">
+            <div className="fromTo">
+              <span className="textlabel">Departure</span>
+              <input type="text" />
+            </div>
+            <div className="fromTo">
+              <span className="textlabel">Travelers Class</span>
+              <input type="text" />
+            </div>
           </div>
         </div>
       </section>
+      <button id="SearchFlight-btn">Search Fligths</button>
     </div>
   );
 }
