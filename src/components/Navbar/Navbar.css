@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap");
+.navbar {
+  height: 50px;
+  display: flex;
+  width: 100wh;
+  justify-content: space-between;
+  padding: 1px 30px 1px 30px;
+  background-color: #ffffff;
+  margin-bottom: 0;
+}
+.navbar .leftNavbar {
+  display: flex;
+}
+
+.leftNavbar h1 {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Protest Riot", sans-serif;
+}
+.navbar .rightNavbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.rightNavbar .icon {
+  font-size: 24px;
+  color: gray;
+  cursor: pointer;
+}
+.profile {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.profile #mytrip {
+  color: gray;
+}
+
+.loginSignup-btn {
+  border-radius: 5px;
+  border: 0.5px solid blue;
+  padding: 10px;
+  height: 32px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  background-color: #ffffff;
+}
+.loginSignup-btn .icon {
+  font-size: 18px;
+  color: rgb(34, 118, 227);
+  cursor: pointer;
+}
+.loginSignup-btn span {
+  display: flex;
+  font-size: 10px;
+}
+
+.loginSignup-btn #loginSignup {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgb(34, 118, 227);
+  cursor: pointer;
+}

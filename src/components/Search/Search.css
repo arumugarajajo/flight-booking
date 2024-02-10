@@ -1,0 +1,74 @@
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  height: 300px;
+}
+
+.searchArea {
+  width: 80%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 1px 1px 1px 1px lightgray;
+}
+
+.travel-type ul {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.searchArea .travel-type ul li {
+  display: flex;
+  font-size: 12px;
+  list-style: none;
+  align-self: center;
+  padding: 4px 6px 4px 6px;
+  border-radius: 10px;
+}
+.searchArea .travel-type ul li:hover {
+  background-color: rgb(233, 241, 252);
+  cursor: pointer;
+}
+
+.searchArea .travel-type ul li label:hover {
+  cursor: pointer;
+}
+
+.searchArea .travel-type ul li input[type="radio"] {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+  color: rgb(34, 118, 227);
+  border: 1px solid rgb(34, 118, 227);
+}
+.searchArea .travel-type ul li input[type="radio"]:hover {
+  background-color: rgb(34, 118, 227);
+}
+
+.travel-type ul li span {
+  font-weight: 500;
+  color: gray;
+  margin-right: 3px;
+  color: rgb(34, 118, 227);
+}
+
+/* User search section */
+
+.textlabel {
+  display: inline-flex;
+  position: absolute;
+  left: 11px;
+  top: -11px;
+  background-color: rgb(255, 255, 255);
+  padding: 3px 8px;
+  line-height: normal;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(1, 110, 255);
+}
