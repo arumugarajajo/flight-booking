@@ -7,6 +7,7 @@ import { FaAngleDown } from "react-icons/fa";
 function FlightListing({ fromLocation, toLocation, filters, onUpdate }) {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   // Function to get the departure category based on depTime
   const getDepartureCategory = (flight) => {
@@ -144,10 +145,18 @@ function FlightListing({ fromLocation, toLocation, filters, onUpdate }) {
     setFlights(sortedFlights);
   };
 
-  // Sort flights by fare price
+  // Function to handle sorting by price
   const sortByPrice = () => {
-    const sortedFlights = [...flights].sort((a, b) => a.fare - b.fare);
+    const sortedFlights = [...flights].sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.fare - b.fare;
+      } else {
+        return b.fare - a.fare;
+      }
+    });
+
     setFlights(sortedFlights);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
   // Sort flights by best combination of duration and stops
