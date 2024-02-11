@@ -3,8 +3,24 @@ import "./UserFilters.css";
 import { MdFlight } from "react-icons/md";
 import PriceRangeFilter from "../Filters/PriceFilter/PriceRangeFilter";
 
-function UserFilters() {
+function UserFilters({ onFiltersChange }) {
   const [flightCount, setFlightCount] = useState(0);
+
+  const [selectedFilters, setSelectedFilters] = useState({
+    departure: [],
+    stops: [],
+    price: null,
+    onwardDuration: null,
+    preferredAirlines: [],
+  });
+
+  const handleFilterChange = (filterCategory, selectedValues) => {
+    setSelectedFilters({
+      ...selectedFilters,
+      [filterCategory]: selectedValues,
+    });
+    onFiltersChange(selectedFilters);
+  };
   return (
     <div className="userFilters">
       <div className="filterContent">

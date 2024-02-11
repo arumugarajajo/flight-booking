@@ -4,9 +4,52 @@ import "./FlightListing.css";
 import { MdFlight } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa";
 
-function FlightListing({ fromLocation, toLocation }) {
+function FlightListing({ fromLocation, toLocation, filters }) {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Function to get the departure category based on depTime
+  const getDepartureCategory = (flight) => {
+    const depTime = new Date(flight.displayData.source.depTime);
+    const hours = depTime.getHours();
+    if (hours < 6) {
+      return "Before 6AM";
+    } else if (hours >= 6 && hours < 12) {
+      return "6AM - 12PM";
+    } else if (hours >= 12 && hours < 18) {
+      return "12PM - 6PM";
+    } else {
+      return "After 6PM";
+    }
+  };
+
+  // Function to get the stops category based on stopInfo
+  const getStopsCategory = (flight) => {
+    const stops = flight.displayData.stopInfo
+      ? flight.displayData.stopInfo.split(" ").length
+      : 0;
+    if (stops === 0) {
+      return "Direct";
+    } else if (stops === 1) {
+      return "1 Stop";
+    } else {
+      return "2+ Stops";
+    }
+  };
+
+  // Function to check if flight price is within the selected range
+  const checkPriceInRange = (flight, priceRange) => {
+    return flight.fare >= priceRange.min && flight.fare <= priceRange.max;
+  };
+
+  // Function to check if flight duration is within the selected range
+  const checkDurationInRange = (flight, durationRange) => {
+    const [hours, minutes] = flight.displayData.totalDuration.split(" ");
+    const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
+    return (
+      totalMinutes >= durationRange.min && totalMinutes <= durationRange.max
+    );
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +66,41 @@ function FlightListing({ fromLocation, toLocation }) {
               toLocation.toLowerCase()
         );
 
+        if (filters) {
+          // Apply departure filter
+          if (filters.departure.length > 0) {
+            filteredFlights = filteredFlights.filter((flight) =>
+              filters.departure.includes(getDepartureCategory(flight))
+            );
+          }
+          // Apply stops filter
+          if (filters.stops.length > 0) {
+            filteredFlights = filteredFlights.filter((flight) =>
+              filters.stops.includes(getStopsCategory(flight))
+            );
+          }
+          // Apply price filter
+          if (filters.price) {
+            filteredFlights = filteredFlights.filter((flight) =>
+              checkPriceInRange(flight, filters.fare)
+            );
+          }
+          // Apply onward duration filter
+          if (filters.onwardDuration) {
+            filteredFlights = filteredFlights.filter((flight) =>
+              checkDurationInRange(flight, filters.onwardDuration)
+            );
+          }
+          // Apply preferred airlines filter
+          if (filters.preferredAirlines.length > 0) {
+            filteredFlights = filteredFlights.filter((flight) =>
+              filters.preferredAirlines.includes(
+                flight.displayData.airlines[0].airlineName
+              )
+            );
+          }
+        }
+
         setFlights(filteredFlights);
         setLoading(false);
       } catch (error) {
@@ -32,7 +110,7 @@ function FlightListing({ fromLocation, toLocation }) {
     };
 
     fetchData();
-  }, [fromLocation, toLocation]);
+  }, [fromLocation, toLocation, filters]);
 
   // Sort flights by departure time
   const sortByDeparture = () => {
@@ -136,53 +214,57 @@ function FlightListing({ fromLocation, toLocation }) {
             <div className="flightResultListContainer">
               {flights.map((flight, index) => (
                 <div key={index} className="flightItem">
-                  <button className="book-btn">Book</button>
-                  <div className="logoAndAirline">
-                    <MdFlight className="flight-icon" />
-                    <p>{flight.displayData.airlines[0].airlineName}</p>
-                  </div>
-                  <div className="fromLocation_Duration_toLocation_fare_btn">
-                    <div className="fromLocation">
-                      <p className="code">
-                        {flight.displayData.source.airport.cityCode},{" "}
-                      </p>
-                      <p>{flight.displayData.source.airport.cityName}, </p>
-                      <p>{flight.displayData.source.airport.countryName}</p>
+                  <div className="flightItemContent">
+                    <div className="logoAndAirline">
+                      <MdFlight className="flight-icon" />
+                      <p>{flight.displayData.airlines[0].airlineName}</p>
                     </div>
-                    <div className="toLocation">
-                      <p className="code">
-                        {flight.displayData.destination.airport.cityCode},{" "}
-                      </p>
-                      <p>{flight.displayData.destination.airport.cityName}, </p>
-                      <p>
-                        {flight.displayData.destination.airport.countryName}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="durationAndFare">
-                    <p>{flight.displayData.destination.arrTime}</p>
-                    <p>{flight.displayData.source.depTime}</p>
-                    <p>{flight.displayData.totalDuration}</p>
-                    <p>${flight.fare}</p>
-                  </div>
-                  <div className="bottom_stop_mealinfo">
-                    {flight.displayData.stopInfo && (
-                      <div className="stopInfo">
-                        {flight.displayData.stopInfo}
+                    <div className="fromLocation_Duration_toLocation_fare_btn">
+                      <div className="fromLocation">
+                        <p className="code">
+                          {flight.displayData.source.airport.cityCode},{" "}
+                        </p>
+                        <p>{flight.displayData.source.airport.cityName}, </p>
+                        <p>{flight.displayData.source.airport.countryName}</p>
                       </div>
-                    )}
-                    <div className="mealInfo">
-                      {flight.displayData.mealInfo && (
-                        <p>Free Meal: {flight.displayData.mealInfo}</p>
-                      )}
+                      <div className="toLocation">
+                        <p className="code">
+                          {flight.displayData.destination.airport.cityCode},{" "}
+                        </p>
+                        <p>
+                          {flight.displayData.destination.airport.cityName},{" "}
+                        </p>
+                        <p>
+                          {flight.displayData.destination.airport.countryName}
+                        </p>
+                      </div>
                     </div>
-                    <div className="offerInfo">
-                      <p>
-                        Get Rs 400 off using HIREME; Extra INR 25 off on UPI
-                        payments
-                      </p>
+                    <div className="durationAndFare">
+                      <p>{flight.displayData.destination.arrTime}</p>
+                      <p>{flight.displayData.source.depTime}</p>
+                      <p>{flight.displayData.totalDuration}</p>
+                      <p>${flight.fare}</p>
+                    </div>
+                    <div className="bottom_stop_mealinfo">
+                      {flight.displayData.stopInfo && (
+                        <div className="stopInfo">
+                          {flight.displayData.stopInfo}
+                        </div>
+                      )}
+                      <div className="mealInfo">
+                        {flight.displayData.mealInfo && (
+                          <p>Free Meal: {flight.displayData.mealInfo}</p>
+                        )}
+                      </div>
+                      <div className="offerInfo">
+                        <p>
+                          Get Rs 400 off using HIREME; Extra INR 25 off on UPI
+                          payments
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <button className="book-btn">Book</button>
                 </div>
               ))}
             </div>
