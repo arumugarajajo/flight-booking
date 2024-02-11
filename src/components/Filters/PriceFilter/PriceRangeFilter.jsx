@@ -1,8 +1,9 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
+import "./PriceRangeFilter.css";
 function PriceRangeFilter({ onFilter }) {
-  const [value, setValue] = React.useState([2, 10]);
+  const [value, setValue] = React.useState([2000, 10000]);
 
   const rangeSelector = (event, newValue) => {
     setValue(newValue);
@@ -10,19 +11,21 @@ function PriceRangeFilter({ onFilter }) {
   };
 
   return (
-    <div
-      style={{
-        margin: "auto",
-        display: "block",
-        width: "fit-content",
-      }}
-    >
-      <h3>How to create Price Range Selector in ReactJS?</h3>
-      <Typography id="range-slider" gutterBottom>
-        Select Price Range:
-      </Typography>
-      <Slider value={value} onChange={rangeSelector} valueLabelDisplay="auto" />
-      Your range of Price is between {value[0]} /- and {value[1]} /-
+    <div className="priceRangeFilterContainer">
+      <p className="priceRangeFilterTitle">Price</p>
+      <Typography id="range-slider" gutterBottom></Typography>
+      <Slider
+        className="priceRangeSlider"
+        value={value}
+        onChange={rangeSelector}
+        valueLabelDisplay="auto"
+        min={1000}
+        max={100000}
+      />
+      <div className="priceRangeBar">
+        <span className="priceRangeValue">${value[0]}</span>
+        <span className="priceRangeValue">${value[1]}</span>
+      </div>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import "./FlightListing.css";
 import { MdFlight } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa";
 
-function FlightListing({ fromLocation, toLocation, filters }) {
+function FlightListing({ fromLocation, toLocation, filters, onUpdate }) {
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -103,6 +103,12 @@ function FlightListing({ fromLocation, toLocation, filters }) {
 
         setFlights(filteredFlights);
         setLoading(false);
+        onUpdate(
+          filteredFlights.length,
+          filteredFlights.map(
+            (flight) => flight.displayData.airlines[0].airlineName
+          )
+        );
       } catch (error) {
         console.error("Error fetching flights:", error);
         setLoading(false);
@@ -110,7 +116,7 @@ function FlightListing({ fromLocation, toLocation, filters }) {
     };
 
     fetchData();
-  }, [fromLocation, toLocation, filters]);
+  }, [fromLocation, toLocation, filters, onUpdate]);
 
   // Sort flights by departure time
   const sortByDeparture = () => {
