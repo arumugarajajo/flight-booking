@@ -5,6 +5,7 @@ import FromSearchFilter from "./FromSearchFilter";
 import useAirportData from "./useAirportData";
 import ToSearchFilter from "./ToSearchFilter";
 import DepartureCalendar from "./DepartureCalender";
+import TravelersClass from "./TravelersClass";
 function Search() {
   const {
     airportData: fromAirportData,
@@ -26,6 +27,7 @@ function Search() {
   const inputRefFrom = useRef(null);
   const inputRefTo = useRef(null);
   const [isCalendarVisible, setCalendarVisible] = useState(false);
+  const [isTravelerClassVisible, setTravelerClassVisible] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -38,6 +40,7 @@ function Search() {
         setShowResultsFrom(false);
         setShowResultsTo(false);
         setCalendarVisible(false);
+        setTravelerClassVisible(false);
       }
     };
 
@@ -163,8 +166,19 @@ function Search() {
             </div>
             <div className="fromTo">
               <span className="textlabel">Travelers Class</span>
-              <input type="text" />
+              <input
+                type="text"
+                value={"1-Adult"}
+                style={{ fontWeight: "600" }}
+                onFocus={() => setTravelerClassVisible(true)}
+              />
             </div>
+            {isTravelerClassVisible && (
+              <TravelersClass
+                ref={inputRefTo}
+                setTravelerClassVisible={setTravelerClassVisible}
+              />
+            )}
           </div>
         </div>
       </section>
