@@ -52,6 +52,10 @@
   border: 1px solid rgb(34, 118, 227);
 }
 
+.travelers .top .classCategory .counts_warning,
+.travelers .top .classCategory .counts_warning:hover {
+  border: 1.3px solid red;
+}
 .travelers .top .counts .countChange {
   color: black;
   font-size: 14px;

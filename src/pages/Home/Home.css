@@ -1,6 +1,16 @@
+/* Home.css */
 .home {
-  width: 100%;
-  height: 100wh;
+  background-color: #e1e7ee;
+}
+.vertical-container {
   display: flex;
-  background-color: aliceblue;
+  gap: 10px;
+}
+
+.userfilters_home {
+  flex: 0.3;
+}
+
+.flightListing_home {
+  flex: 0.7;
 }

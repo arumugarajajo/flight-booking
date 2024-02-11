@@ -7,7 +7,7 @@ import ToSearchFilter from "./ToSearchFilter";
 import DepartureCalendar from "./DepartureCalender";
 import TravelersClass from "./TravelersClass";
 
-function Search() {
+function Search({ onSearch }) {
   const {
     airportData: fromAirportData,
     filteredAirports: fromFilteredAirports,
@@ -34,7 +34,29 @@ function Search() {
   const [childsCount, setChildsCount] = useState(0);
   const [infantsCount, setInfantsCount] = useState(0);
   const [classType, setClassType] = useState("Economy");
+  const [departureDate, setDepartureDate] = useState("");
+  const [searchData, setSearchData] = useState(null);
 
+  const handleDatePick = (date) => {
+    setDepartureDate(date);
+    setCalendarVisible(false);
+  };
+
+  const handleSearchFlight = () => {
+    const fromLocation = searchInputFrom;
+    const toLocation = searchInputTo;
+
+    if (fromLocation && toLocation) {
+      const searchData = {
+        fromLocation: fromLocation,
+        toLocation: toLocation,
+      };
+      setSearchData(searchData);
+      onSearch(searchData);
+    } else {
+      setSearchData(null);
+    }
+  };
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (
@@ -70,7 +92,7 @@ function Search() {
   };
 
   const handleResultClickFrom = (airport) => {
-    setSearchInputFrom(`${airport.cityName}, ${airport.countryName}`);
+    setSearchInputFrom(`${airport.cityName}`);
     setShowResultsFrom(false);
     setSelectedAirportIndexFrom(null);
   };
@@ -88,7 +110,7 @@ function Search() {
   };
 
   const handleResultClickTo = (airport) => {
-    setSearchInputTo(`${airport.cityName}, ${airport.countryName}`);
+    setSearchInputTo(`${airport.cityName}`);
     setShowResultsTo(false);
     setSelectedAirportIndexTo(null);
   };
@@ -165,7 +187,10 @@ function Search() {
             <div className="fromTo">
               <span className="textlabel">Departure</span>
               {isCalendarVisible ? (
-                <DepartureCalendar className="departureCalendar" />
+                <DepartureCalendar
+                  className="departureCalendar"
+                  onDatePick={handleDatePick}
+                />
               ) : (
                 <input type="text" onFocus={() => setCalendarVisible(true)} />
               )}
@@ -195,7 +220,9 @@ function Search() {
           </div>
         </div>
       </section>
-      <button id="SearchFlight-btn">Search Flights</button>
+      <button id="SearchFlight-btn" onClick={handleSearchFlight}>
+        Search Flights
+      </button>
     </div>
   );
 }

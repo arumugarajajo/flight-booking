@@ -1,0 +1,121 @@
+.userFilters {
+  display: flex;
+  flex: 0.3;
+  background-color: #fff;
+  top: 300px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 8px;
+}
+.filterContent {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  align-items: start;
+  text-align: start;
+}
+.filterContent .filters {
+  align-items: center;
+  margin-top: -10px;
+  border-bottom: 0.5px solid lightgray;
+}
+.filterContent .filters .top {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+.filterContent .filters .top #resetall {
+  color: rgb(34, 118, 227);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filterContent .filters .bottom {
+  margin-top: -20px;
+  color: gray;
+}
+
+/* departure */
+
+.filterContent .departure {
+  border-bottom: 0.5px solid lightgray;
+}
+
+.filterContent .departure p {
+  font-size: 12px;
+}
+
+.filterContent .departure .spans {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filterContent .departure .spans span {
+  padding: 10px;
+  background-color: rgb(233, 241, 252);
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  color: rgb(34, 118, 227);
+  cursor: pointer;
+}
+
+.filterContent .departure .spans span:hover {
+  outline: 1px solid rgb(34, 118, 227);
+}
+
+/* stops */
+
+.filterContent .stops {
+  border-bottom: 0.5px solid lightgray;
+}
+
+.filterContent .stops p {
+  font-size: 12px;
+}
+
+.filterContent .stops .spans {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.filterContent .stops .spans span {
+  padding: 10px;
+  background-color: rgb(233, 241, 252);
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  color: rgb(34, 118, 227);
+  cursor: pointer;
+}
+
+.filterContent .stops .spans span:hover {
+  outline: 1px solid rgb(34, 118, 227);
+}
+
+/* airlineLists */
+.filterContent .preferredAirlines .top {
+  display: flex;
+  justify-content: space-between;
+}
+.filterContent .preferredAirlines .top #reset {
+  color: rgb(34, 118, 227);
+  cursor: pointer;
+}
+.filterContent .preferredAirlines .airlineLists {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filterContent .preferredAirlines .airlineLists .left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
