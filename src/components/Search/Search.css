@@ -201,3 +201,9 @@
   text-align: end;
   flex: 0.2;
 }
+
+/* Departure Calender */
+.departureCalender {
+  border: none !important;
+  outline: none !important;
+}

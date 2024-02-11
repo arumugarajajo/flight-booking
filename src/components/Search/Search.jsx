@@ -4,7 +4,7 @@ import { FaExchangeAlt } from "react-icons/fa";
 import FromSearchFilter from "./FromSearchFilter";
 import useAirportData from "./useAirportData";
 import ToSearchFilter from "./ToSearchFilter";
-
+import DepartureCalendar from "./DepartureCalender";
 function Search() {
   const {
     airportData: fromAirportData,
@@ -25,6 +25,7 @@ function Search() {
   const [selectedAirportIndexTo, setSelectedAirportIndexTo] = useState(null);
   const inputRefFrom = useRef(null);
   const inputRefTo = useRef(null);
+  const [isCalendarVisible, setCalendarVisible] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -36,6 +37,7 @@ function Search() {
       ) {
         setShowResultsFrom(false);
         setShowResultsTo(false);
+        setCalendarVisible(false);
       }
     };
 
@@ -153,7 +155,11 @@ function Search() {
           <div className="rightDepartureTravelersClass">
             <div className="fromTo">
               <span className="textlabel">Departure</span>
-              <input type="text" />
+              {isCalendarVisible ? (
+                <DepartureCalendar className="departureCalendar" />
+              ) : (
+                <input type="text" onFocus={() => setCalendarVisible(true)} />
+              )}
             </div>
             <div className="fromTo">
               <span className="textlabel">Travelers Class</span>
