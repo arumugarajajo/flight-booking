@@ -21,7 +21,7 @@ function UserFilters({ flights, flightsCount, preferredAirlines }) {
       onwardDuration: null,
       preferredAirlines: [],
     });
-    setFlightCount(0);
+    // setFlightCount(0);
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false;

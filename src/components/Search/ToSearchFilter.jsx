@@ -26,6 +26,12 @@ const ToSearchFilter = ({
     };
   }, [setShowResults]);
 
+  // Filter out duplicate airports based on airportCode
+  const uniqueAirports = filteredAirports.filter(
+    (airport, index, self) =>
+      index === self.findIndex((a) => a.airportCode === airport.airportCode)
+  );
+
   return (
     <div className="fromTo" ref={inputRef}>
       <span className="textlabel">To</span>
@@ -39,8 +45,8 @@ const ToSearchFilter = ({
 
       {showResults && (
         <div className="searchResults">
-          {filteredAirports.length > 0 ? (
-            filteredAirports.map((airport, index) => (
+          {uniqueAirports.length > 0 ? (
+            uniqueAirports.map((airport, index) => (
               <div
                 key={index}
                 className={`fromSearchResults resultItem ${
