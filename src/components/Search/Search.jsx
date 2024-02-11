@@ -6,6 +6,7 @@ import useAirportData from "./useAirportData";
 import ToSearchFilter from "./ToSearchFilter";
 import DepartureCalendar from "./DepartureCalender";
 import TravelersClass from "./TravelersClass";
+
 function Search() {
   const {
     airportData: fromAirportData,
@@ -17,6 +18,7 @@ function Search() {
     filteredAirports: toFilteredAirports,
     setFilteredAirports: setToFilteredAirports,
   } = useAirportData("to");
+
   const [searchInputFrom, setSearchInputFrom] = useState("");
   const [showResultsFrom, setShowResultsFrom] = useState(false);
   const [selectedAirportIndexFrom, setSelectedAirportIndexFrom] =
@@ -28,6 +30,10 @@ function Search() {
   const inputRefTo = useRef(null);
   const [isCalendarVisible, setCalendarVisible] = useState(false);
   const [isTravelerClassVisible, setTravelerClassVisible] = useState(false);
+  const [adultsCount, setAdultsCount] = useState(1);
+  const [childsCount, setChildsCount] = useState(0);
+  const [infantsCount, setInfantsCount] = useState(0);
+  const [classType, setClassType] = useState("Economy");
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -167,15 +173,22 @@ function Search() {
             <div className="fromTo">
               <span className="textlabel">Travelers Class</span>
               <input
+                id="travelInputText"
                 type="text"
-                value={"1-Adult"}
-                style={{ fontWeight: "600" }}
+                value={`${adultsCount} Adults, ${childsCount} Child, ${infantsCount} Infants`}
                 onFocus={() => setTravelerClassVisible(true)}
               />
+              <p id="travelInputText-p">{classType}</p>
             </div>
             {isTravelerClassVisible && (
               <TravelersClass
-                ref={inputRefTo}
+                adultsCount={adultsCount}
+                setAdultsCount={setAdultsCount}
+                childsCount={childsCount}
+                setChildsCount={setChildsCount}
+                infantsCount={infantsCount}
+                setInfantsCount={setInfantsCount}
+                setClassType={setClassType}
                 setTravelerClassVisible={setTravelerClassVisible}
               />
             )}

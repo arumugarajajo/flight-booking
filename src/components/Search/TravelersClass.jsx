@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Travelers.css";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 
-const TravelersClass = ({ setTravelerClassVisible }) => {
-  const [adultsCount, setAdultsCount] = useState(1);
-  const [childsCount, setChildsCount] = useState(0);
-  const [infantsCount, setInfantsCount] = useState(0);
-
+const TravelersClass = ({
+  setTravelerClassVisible,
+  adultsCount,
+  childsCount,
+  infantsCount,
+  setAdultsCount,
+  setChildsCount,
+  setInfantsCount,
+  setClassType,
+}) => {
   const adultIncreament = () => {
     if (adultsCount < 9) {
       setAdultsCount(adultsCount + 1);
@@ -31,6 +36,7 @@ const TravelersClass = ({ setTravelerClassVisible }) => {
       setChildsCount(childsCount - 1);
     }
   };
+
   const infantIncreament = () => {
     if (infantsCount < 9) {
       setInfantsCount(infantsCount + 1);
@@ -42,6 +48,7 @@ const TravelersClass = ({ setTravelerClassVisible }) => {
       setInfantsCount(infantsCount - 1);
     }
   };
+
   return (
     <div className="travelers">
       <div className="top">
@@ -88,12 +95,31 @@ const TravelersClass = ({ setTravelerClassVisible }) => {
       <div className="bottoms-Section">
         <h4>Travel Class</h4>
         <div className="classType-btns">
-          <button id="activeClass" className="classtype-btn">
+          <button
+            id="activeClass"
+            className="classtype-btn"
+            onClick={() => setClassType("Economy")}
+          >
             Economy
           </button>
-          <button className="classtype-btn">Business</button>
-          <button className="classtype-btn">Premium-Economy</button>
-          <button className="classtype-btn">First Class</button>
+          <button
+            className="classtype-btn"
+            onClick={() => setClassType("Business")}
+          >
+            Business
+          </button>
+          <button
+            className="classtype-btn"
+            onClick={() => setClassType("Premium-Economy")}
+          >
+            Premium-Economy
+          </button>
+          <button
+            className="classtype-btn"
+            onClick={() => setClassType("First Class")}
+          >
+            First Class
+          </button>
         </div>
       </div>
       <div className="button-section">
